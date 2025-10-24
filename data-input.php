@@ -36,7 +36,7 @@ if(isset($_GET['status'])){
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-sm-6">
-								<h3 class="mb-0">Input Mahasiswa</h3>
+								<h3 class="mb-0">Input Roti</h3>
 							</div>
 							<div class="col-sm-6">
 								<ol class="breadcrumb float-sm-end">
@@ -54,7 +54,7 @@ if(isset($_GET['status'])){
 							<div class="col-12">
 								<div class="card">
 									<div class="card-header">
-										<h3 class="card-title">Formulir Mahasiswa</h3>
+										<h3 class="card-title">Input Roti</h3>
 										<div class="card-tools">
 											<button type="button" class="btn btn-tool" data-lte-toggle="card-collapse" title="Collapse">
 												<i data-lte-icon="expand" class="bi bi-plus-lg"></i>
@@ -68,17 +68,17 @@ if(isset($_GET['status'])){
                                     <form action="proses/proses-input.php" method="POST">
 									    <div class="card-body">
                                             <div class="mb-3">
-                                                <label for="nim" class="form-label">Nomor Induk Mahasiswa (NIM)</label>
-                                                <input type="number" class="form-control" id="nim" name="nim" placeholder="Masukkan NIM Mahasiswa" required>
+                                                <label for="nim" class="form-label">Kode Roti</label>
+                                                <input type="number" class="form-control" id="kode Roti" name="kode roti" placeholder="Masukkan kode roti" required>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="nama" class="form-label">Nama Lengkap</label>
-                                                <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama Lengkap Mahasiswa" required>
+                                                <label for="nama" class="form-label">Nama Varian roti</label>
+                                                <input type="text" class="form-control" id="nama varian roti" name="nama varian roti" placeholder="Masukkan Nama Varian Roti" required>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="prodi" class="form-label">Program Studi</label>
+                                                <label for="prodi" class="form-label">Toping Roti</label>
                                                 <select class="form-select" id="prodi" name="prodi" required>
-                                                    <option value="" selected disabled>Pilih Program Studi</option>
+                                                    <option value="" selected disabled>Toping Roti</option>
                                                     <?php 
                                                     // Iterasi daftar program studi dan menampilkannya sebagai opsi dalam dropdown
                                                     foreach ($prodiList as $prodi){
@@ -86,6 +86,10 @@ if(isset($_GET['status'])){
                                                     }
                                                     ?>
                                                 </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="jumlah" class="form-label">jumlah Box roti</label>
+                                                <input type="text" class="form-control" id="jumlah Box roti" name="jumlah Box roti" placeholder="Masukkan jumlah box Roti" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="alamat" class="form-label">Alamat</label>

@@ -8,6 +8,7 @@
                     <i class="bi bi-list"></i>
                 </a>
             </li>
+            
             <li class="nav-item d-none d-md-block"><a href="index.php" class="nav-link">Beranda</a></li>
         </ul>
 

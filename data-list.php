@@ -1,7 +1,7 @@
 <?php
 
 include_once 'config/class-mahasiswa.php';
-$mahasiswa = new Mahasiswa();
+$roti = new roti();
 // Menampilkan alert berdasarkan status yang diterima melalui parameter GET
 if(isset($_GET['status'])){
 	// Mengecek nilai parameter GET 'status' dan menampilkan alert yang sesuai menggunakan JavaScript
@@ -15,7 +15,7 @@ if(isset($_GET['status'])){
 		echo "<script>alert('Gagal menghapus data mahasiswa. Silakan coba lagi.');</script>";
 	}
 }
-$dataMahasiswa = $mahasiswa->getAllMahasiswa();
+$dataroti = $roti->getAllRoti();
 
 ?>
 <!doctype html>
@@ -73,8 +73,11 @@ $dataMahasiswa = $mahasiswa->getAllMahasiswa();
 												<tr>
 													<th>No</th>
 													<th>NIM</th>
+													<th>Kode</th>
 													<th>Nama</th>
-													<th>Prodi</th>
+													<th>Varian</th>
+													<th>Toping</th>
+													<th>jumlah</th>
 													<th>Provinsi</th>
 													<th>Alamat</th>
 													<th>Telp</th>
@@ -85,31 +88,29 @@ $dataMahasiswa = $mahasiswa->getAllMahasiswa();
 											</thead>
 											<tbody>
 												<?php
-													if(count($dataMahasiswa) == 0){
+													if(count($dataroti) == 0){
 													    echo '<tr class="align-middle">
 															<td colspan="10" class="text-center">Tidak ada data mahasiswa.</td>
 														</tr>';
 													} else {
-														foreach ($dataMahasiswa as $index => $mahasiswa){
-															if($mahasiswa['status'] == 1){
-															    $mahasiswa['status'] = '<span class="badge bg-success">Aktif</span>';
-															} elseif($mahasiswa['status'] == 2){
-															    $mahasiswa['status'] = '<span class="badge bg-danger">Tidak Aktif</span>';
-															} elseif($mahasiswa['status'] == 3){
-															    $mahasiswa['status'] = '<span class="badge bg-warning text-dark">Cuti</span>';
-															} elseif($mahasiswa['status'] == 4){
-															    $mahasiswa['status'] = '<span class="badge bg-primary">Lulus</span>';
-															} 
+														foreach ($dataroti as $index => $roti){
+															if($roti['status'] == 1){
+															    $roti['status'] = '<span class="badge bg-success">CHECKOUT</span>';
+															} elseif($roti['status'] == 2){
+															    $roti['status'] = '<span class="badge bg-danger">CANCEL</span>';
+															}
 															echo '<tr class="align-middle">
 																<td>'.($index + 1).'</td>
-																<td>'.$mahasiswa['nim'].'</td>
-																<td>'.$mahasiswa['nama'].'</td>
-																<td>'.$mahasiswa['prodi'].'</td>
-																<td>'.$mahasiswa['provinsi'].'</td>
-																<td>'.$mahasiswa['alamat'].'</td>
-																<td>'.$mahasiswa['telp'].'</td>
-																<td>'.$mahasiswa['email'].'</td>
-																<td class="text-center">'.$mahasiswa['status'].'</td>
+																<td>'.$roti['kode'].'</td>
+																<td>'.$roti['nama'].'</td>
+																<td>'.$roti['varian'].'</td>
+																<td>'.$roti['toping'].'</td>
+																<td>'.$roti['jumlah'].'</td>
+																<td>'.$roti['provinsi'].'</td>
+																<td>'.$roti['alamat'].'</td>
+																<td>'.$roti['telp'].'</td>
+																<td>'.$roti['email'].'</td>
+																<td class="text-center">'.$roti['status'].'</td>
 																<td class="text-center">
 																	<button type="button" class="btn btn-sm btn-warning me-1" onclick="window.location.href=\'data-edit.php?id='.$mahasiswa['id'].'\'"><i class="bi bi-pencil-fill"></i> Edit</button>
 																	<button type="button" class="btn btn-sm btn-danger" onclick="if(confirm(\'Yakin ingin menghapus data mahasiswa ini?\')){window.location.href=\'proses/proses-delete.php?id='.$mahasiswa['id'].'\'}"><i class="bi bi-trash-fill"></i> Hapus</button>

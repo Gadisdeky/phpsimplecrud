@@ -2,7 +2,17 @@
     <div class="sidebar-brand">
         <a href="index.php" class="brand-link">
             <img src="assets/img/cake.png" alt="AdminLTE Logo" class="brand-image opacity-75 shadow" />
-            <span class="brand-text fw-light">CAKE-GALAXY</span>
+            <span class="brand-text fw-light">BREAD-GALAXY</span>
+            <style> 
+            body{
+               background: url('assets/bg-cake.png') no-repeat center center fixed;
+                color: #5a1111ff;
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+           </style> 
+     
         </a>
     </div>
 
