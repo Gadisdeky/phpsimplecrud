@@ -3,7 +3,7 @@
 include_once 'config/class-master.php';
 $master = new MasterData();
 // Mengambil daftar program studi, provinsi, dan status mahasiswa
-$prodiList = $master->getProdi();
+$VarianList = $master->getVarian();
 // Mengambil daftar provinsi
 $provinsiList = $master->getProvinsi();
 // Mengambil daftar status mahasiswa

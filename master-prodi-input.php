@@ -33,7 +33,7 @@ if(isset($_GET['status'])){
 							<div class="col-sm-6">
 								<ol class="breadcrumb float-sm-end">
 									<li class="breadcrumb-item"><a href="index.php">Beranda</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Input Prodi</li>
+									<li class="breadcrumb-item active" aria-current="page">Input Varian Roti</li>
 								</ol>
 							</div>
 						</div>

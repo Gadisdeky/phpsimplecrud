@@ -1,7 +1,7 @@
 <?php
 
 include_once 'config/class-mahasiswa.php';
-$mahasiswa = new Mahasiswa();
+$roti = new roti();
 $kataKunci = '';
 // Mengecek apakah parameter GET 'search' ada
 if(isset($_GET['search'])){

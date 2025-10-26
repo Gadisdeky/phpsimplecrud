@@ -3,7 +3,7 @@
 // Silakan lihat komentar di file data-edit.php untuk penjelasan kode ini, karena struktur dan logikanya serupa.
 include_once 'config/class-master.php';
 $master = new MasterData();
-$dataProdi = $master->getUpdateProdi($_GET['id']);
+$dataVarianroti = $master->getUpdateVarianroti($_GET['id']);
 if(isset($_GET['status'])){
     if($_GET['status'] == 'failed'){
         echo "<script>alert('Gagal mengubah data program studi. Silakan coba lagi.');</script>";

@@ -35,7 +35,7 @@
                 <li class="nav-item">
                     <a href="data-list.php" class="nav-link">
                         <i class="nav-icon bi bi-card-list"></i>
-                        <p>Menu</p>
+                        <p>Data Pesanan</p>
                     </a>
                 </li>
                 <li class="nav-item">

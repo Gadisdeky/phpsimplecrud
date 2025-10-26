@@ -1,21 +1,21 @@
 <?php
 
-include_once 'config/class-mahasiswa.php';
+include_once 'config/class-roti.php';
 $roti = new roti();
 // Menampilkan alert berdasarkan status yang diterima melalui parameter GET
 if(isset($_GET['status'])){
 	// Mengecek nilai parameter GET 'status' dan menampilkan alert yang sesuai menggunakan JavaScript
 	if($_GET['status'] == 'inputsuccess'){
-		echo "<script>alert('Data mahasiswa berhasil ditambahkan.');</script>";
+		echo "<script>alert('Data roti berhasil ditambahkan.');</script>";
 	} else if($_GET['status'] == 'editsuccess'){
-		echo "<script>alert('Data mahasiswa berhasil diubah.');</script>";
+		echo "<script>alert('Data roti berhasil diubah.');</script>";
 	} else if($_GET['status'] == 'deletesuccess'){
-		echo "<script>alert('Data mahasiswa berhasil dihapus.');</script>";
+		echo "<script>alert('Data roti berhasil dihapus.');</script>";
 	} else if($_GET['status'] == 'deletefailed'){
-		echo "<script>alert('Gagal menghapus data mahasiswa. Silakan coba lagi.');</script>";
+		echo "<script>alert('Gagal menghapus data roti. Silakan coba lagi.');</script>";
 	}
 }
-$dataroti = $roti->getAllRoti();
+$roti = $roti->getAllroti();
 
 ?>
 <!doctype html>
@@ -56,7 +56,7 @@ $dataroti = $roti->getAllRoti();
 							<div class="col-12">
 								<div class="card">
 									<div class="card-header">
-										<h3 class="card-title">Tabel Mahasiswa</h3>
+										<h3 class="card-title">Tabel Data roti</h3>
 										<div class="card-tools">
 											<button type="button" class="btn btn-tool" data-lte-toggle="card-collapse" title="Collapse">
 												<i data-lte-icon="expand" class="bi bi-plus-lg"></i>
@@ -72,10 +72,9 @@ $dataroti = $roti->getAllRoti();
 											<thead>
 												<tr>
 													<th>No</th>
-													<th>NIM</th>
-													<th>Kode</th>
-													<th>Nama</th>
-													<th>Varian</th>
+		                                            <th>Kode</th>
+													<th>Nama roti</th>
+													<th>Varian Rasa</th>
 													<th>Toping</th>
 													<th>jumlah</th>
 													<th>Provinsi</th>

@@ -6,15 +6,15 @@ include_once 'db-config.php';
 class MasterData extends Database {
 
     // Method untuk mendapatkan daftar program studi
-    public function getProdi(){
-        $query = "SELECT * FROM tb_prodi";
+    public function getvarianroti(){
+        $query = "SELECT * FROM tb_Varian_roti";
         $result = $this->conn->query($query);
         $prodi = [];
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 $prodi[] = [
-                    'id' => $row['kode_prodi'],
-                    'nama' => $row['nama_prodi']
+                    'kode' => $row['kode_Roti'],
+                    'nama' => $row['nama_Varian_roti']
                 ];
             }
         }
@@ -40,23 +40,22 @@ class MasterData extends Database {
     // Method untuk mendapatkan daftar status mahasiswa menggunakan array statis
     public function getStatus(){
         return [
-            ['id' => 1, 'nama' => 'Aktif'],
-            ['id' => 2, 'nama' => 'Tidak Aktif'],
-            ['id' => 3, 'nama' => 'Cuti'],
-            ['id' => 4, 'nama' => 'Lulus']
+            ['id' => 1, 'nama' => 'Checkout'],
+            ['id' => 2, 'nama' => 'Cancel']
+            
         ];
     }
 
     // Method untuk input data program studi
     public function inputProdi($data){
-        $kodeProdi = $data['kode'];
-        $namaProdi = $data['nama'];
-        $query = "INSERT INTO tb_prodi (kode_prodi, nama_prodi) VALUES (?, ?)";
+        $koderoti = $data['kode'];
+        $namaVarian = $data['nama'];
+        $query = "INSERT INTO tb_Varian_roti (kode_Roti, nama_Varian_roti) VALUES (?, ?)";
         $stmt = $this->conn->prepare($query);
         if(!$stmt){
             return false;
         }
-        $stmt->bind_param("ss", $kodeProdi, $namaProdi);
+        $stmt->bind_param("ss", $koderoti, $namaVarian);
         $result = $stmt->execute();
         $stmt->close();
         return $result;
@@ -64,36 +63,36 @@ class MasterData extends Database {
 
     // Method untuk mendapatkan data program studi berdasarkan kode
     public function getUpdateProdi($id){
-        $query = "SELECT * FROM tb_prodi WHERE kode_prodi = ?";
+        $query = "SELECT * FROM tb_Varian_roti WHERE kode_Roti = ?";
         $stmt = $this->conn->prepare($query);
         if(!$stmt){
             return false;
         }
-        $stmt->bind_param("s", $id);
+        $stmt->bind_param("s", $kode);
         $stmt->execute();
         $result = $stmt->get_result();
         $prodi = null;
         if($result->num_rows > 0){
             $row = $result->fetch_assoc();
             $prodi = [
-                'id' => $row['kode_prodi'],
-                'nama' => $row['nama_prodi']
+                'kode' => $row['kode_Roti'],
+                'nama' => $row['nama_Varian_roti']
             ];
         }
         $stmt->close();
-        return $prodi;
+        return $Varian;
     }
 
     // Method untuk mengedit data program studi
-    public function updateProdi($data){
+    public function updateVarian($data){
         $kodeProdi = $data['kode'];
         $namaProdi = $data['nama'];
-        $query = "UPDATE tb_prodi SET nama_prodi = ? WHERE kode_prodi = ?";
+        $query = "UPDATE tb_Varian_roti SET nama_Varian_roti = ? WHERE kode_Roti = ?";
         $stmt = $this->conn->prepare($query);
         if(!$stmt){
             return false;
         }
-        $stmt->bind_param("ss", $namaProdi, $kodeProdi);
+        $stmt->bind_param("ss", $namaVarian, $kodeRoti);
         $result = $stmt->execute();
         $stmt->close();
         return $result;

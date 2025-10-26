@@ -14,7 +14,7 @@ if(isset($_GET['status'])){
 		echo "<script>alert('Gagal menghapus data prodi. Silakan coba lagi.');</script>";
 	}
 }
-$dataProdi = $master->getProdi();
+$dataVarian = $master->getVarian();
 
 ?>
 <!doctype html>
