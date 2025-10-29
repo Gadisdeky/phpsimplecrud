@@ -14,7 +14,7 @@ if(isset($_GET['status'])){
 		echo "<script>alert('Gagal menghapus data prodi. Silakan coba lagi.');</script>";
 	}
 }
-$dataVarian = $master->getVarian();
+$dataVarian = $master->getvarianroti();
 
 ?>
 <!doctype html>
@@ -78,19 +78,19 @@ $dataVarian = $master->getVarian();
 											</thead>
 											<tbody>
 												<?php
-													if(count($dataProdi) == 0){
+													if(count($dataVarian) == 0){
 													    echo '<tr class="align-middle">
 															<td colspan="4" class="text-center">Tidak ada data prodi.</td>
 														</tr>';
 													} else {
-														foreach ($dataProdi as $index => $prodi){
+														foreach ($dataVarian as $index => $Varian){
 															echo '<tr class="align-middle">
 																<td>'.($index + 1).'</td>
-																<td>'.$prodi['id'].'</td>
-																<td>'.$prodi['nama'].'</td>
+																<td>'.$Varian['kode'].'</td>
+																<td>'.$Varian['nama'].'</td>
 																<td class="text-center">
-																	<button type="button" class="btn btn-sm btn-warning me-1" onclick="window.location.href=\'master-prodi-edit.php?id='.$prodi['id'].'\'"><i class="bi bi-pencil-fill"></i> Edit</button>
-																	<button type="button" class="btn btn-sm btn-danger" onclick="if(confirm(\'Yakin ingin menghapus data program studi ini?\')){window.location.href=\'proses/proses-prodi.php?aksi=deleteprodi&id='.$prodi['id'].'\'}"><i class="bi bi-trash-fill"></i> Hapus</button>
+																	<button type="button" class="btn btn-sm btn-warning me-1" onclick="window.location.href=\'master-prodi-edit.php?id='.$Varian['kode'].'\'"><i class="bi bi-pencil-fill"></i> Edit</button>
+																	<button type="button" class="btn btn-sm btn-danger" onclick="if(confirm(\'Yakin ingin menghapus data program studi ini?\')){window.location.href=\'proses/proses-prodi.php?aksi=deleteprodi&id='.$Varian['kode'].'\'}"><i class="bi bi-trash-fill"></i> Hapus</button>
 																</td>
 															</tr>';
 														}

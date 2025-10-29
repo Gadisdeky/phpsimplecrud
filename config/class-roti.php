@@ -5,54 +5,56 @@ include_once 'db-config.php';
 
 class roti extends Database {
 
-    // Method untuk input data mahasiswa
+    // Method untuk input data roti
     public function inputroti($data){
         // Mengambil data dari parameter $data
         $kode     = $data['kode'];
-        $Nama     = $data['nama varian roti'];
-        $varian   = $data['varian roti'];
-        $toping   = $data['topi roti'];
-        $jumlah   = $data['jumlah box roti'];
+        $nama     = $data['nama_varian_roti'];
+        $varian   = $data['varian_roti'];
+        $toping   = $data['toping_roti'];
+        $jumlah   = $data['jumlah_box_roti'];
         $alamat   = $data['alamat'];
         $provinsi = $data['provinsi'];
         $email    = $data['email'];
         $telp     = $data['telp'];
-        $status   = $data['status pesanan'];
-        // Menyiapkan query SQL untuk insert data menggunakan prepared statement
-        $query = "INSERT INTO tb_mahasiswa (kode_roti, nama_varian_roti, varian_roti, jumlah_box_roti, alamat, provinsi, email, telp, status_mhs) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $status   = $data['status_pesanan'];
+
+        // Menyiapkan query SQL untuk insert data
+        $query = "INSERT INTO tb_roti 
+                  (kode_roti, nama_varian_roti, varian_roti, toping_roti, jumlah_box_roti, alamat, provinsi, email, telp, status_pesanan) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
-        // Mengecek apakah statement berhasil disiapkan
+
         if(!$stmt){
             return false;
         }
+
         // Memasukkan parameter ke statement
-        $stmt->bind_param("ssssssss", $kode, $nama, $varian, $toping, $jumlah, $alamat, $provinsi, $email, $telp, $status);
+        $stmt->bind_param("ssssssssss", $kode, $nama, $varian, $toping, $jumlah, $alamat, $provinsi, $email, $telp, $status);
         $result = $stmt->execute();
         $stmt->close();
-        // Mengembalikan hasil eksekusi query
+
         return $result;
     }
 
-    // Method untuk mengambil semua data mahasiswa
-    public function getAllMahasiswa(){
-        // Menyiapkan query SQL untuk mengambil data mahasiswa beserta prodi dan provinsi
-        $query = "SELECT id_mhs, nim_mhs, nama_mhs, nama_prodi, nama_provinsi, alamat, email, telp, status_mhs 
-                  FROM tb_mahasiswa
-                  JOIN tb_prodi ON prodi_mhs = kode_prodi
-                  JOIN tb_provinsi ON provinsi = id_provinsi";
+    // Method untuk mengambil semua data roti
+    public function getAllroti(){
+        $query = "SELECT r.id_roti, r.kode_roti, r.nama_varian_roti, r.toping_roti, r.jumlah_box_roti, 
+                         r.alamat, r.email, r.telp, r.status_pesanan, p.nama_provinsi
+                  FROM tb_roti r
+                  JOIN tb_provinsi p ON r.provinsi = p.id_provinsi";
         $result = $this->conn->query($query);
-        // Menyiapkan array kosong untuk menyimpan data mahasiswa
-        $mahasiswa = [];
-        // Mengecek apakah ada data yang ditemukan
-        if($result->num_rows > 0){
-            // Mengambil setiap baris data dan memasukkannya ke dalam array
+
+        $roti = [];
+
+        if($result && $result->num_rows > 0){
             while($row = $result->fetch_assoc()) {
-                $mahasiswa[] = [
+                $roti[] = [
                     'id' => $row['id_roti'],
                     'kode' => $row['kode_roti'],
                     'nama' => $row['nama_varian_roti'],
                     'toping' => $row['toping_roti'],
-                    'prodi' => $row['jumlah_box_roti'],
+                    'jumlah' => $row['jumlah_box_roti'],
                     'provinsi' => $row['nama_provinsi'],
                     'alamat' => $row['alamat'],
                     'email' => $row['email'],
@@ -61,14 +63,13 @@ class roti extends Database {
                 ];
             }
         }
-        // Mengembalikan array data mahasiswa
-        return $mahasiswa;
+
+        return $roti;
     }
 
-    // Method untuk mengambil data mahasiswa berdasarkan ID
+    // Method untuk mengambil data roti berdasarkan ID
     public function getUpdateroti($id){
-        // Menyiapkan query SQL untuk mengambil data mahasiswa berdasarkan ID menggunakan prepared statement
-        $query = "SELECT * FROM tb_mahasiswa WHERE id_mhs = ?";
+        $query = "SELECT * FROM tb_roti WHERE id_roti = ?";
         $stmt = $this->conn->prepare($query);
         if(!$stmt){
             return false;
@@ -77,10 +78,9 @@ class roti extends Database {
         $stmt->execute();
         $result = $stmt->get_result();
         $data = false;
+
         if($result->num_rows > 0){
-            // Mengambil data mahasiswa  
             $row = $result->fetch_assoc();
-            // Menyimpan data dalam array
             $data = [
                 'id' => $row['id_roti'],
                 'kode' => $row['kode_roti'],
@@ -92,45 +92,44 @@ class roti extends Database {
                 'provinsi' => $row['provinsi'],
                 'email' => $row['email'],
                 'telp' => $row['telp'],
-                'status' => $row['status_mhs']
+                'status' => $row['status_pesanan']
             ];
         }
         $stmt->close();
-        // Mengembalikan data mahasiswa
         return $data;
     }
 
-    // Method untuk mengedit data mahasiswa
+    // Method untuk mengedit data roti
     public function editroti($data){
-        // Mengambil data dari parameter $data
-        $id      = $data['id'];
+        $id       = $data['id'];
         $kode     = $data['kode'];
         $nama     = $data['nama'];
         $varian   = $data['varian'];
-        $toping  = $data['toping'];
+        $toping   = $data['toping'];
         $jumlah   = $data['jumlah'];
         $alamat   = $data['alamat'];
         $provinsi = $data['provinsi'];
         $email    = $data['email'];
         $telp     = $data['telp'];
         $status   = $data['status'];
-        // Menyiapkan query SQL untuk update data menggunakan prepared statement
-        $query = "UPDATE tb_roti SET kode_roti = ?, nama_varian_roti = ?, varian_roti = ?,  toping_roti = ?,  jumlah_box_roti = ?, alamat = ?, provinsi = ?, email = ?, telp = ?, status_mhs = ? WHERE id_mhs = ?";
+
+        $query = "UPDATE tb_roti 
+                  SET kode_roti = ?, nama_varian_roti = ?, varian_roti = ?, toping_roti = ?, 
+                      jumlah_box_roti = ?, alamat = ?, provinsi = ?, email = ?, telp = ?, status_pesanan = ? 
+                  WHERE id_roti = ?";
         $stmt = $this->conn->prepare($query);
         if(!$stmt){
             return false;
         }
-        // Memasukkan parameter ke statement
-        $stmt->bind_param("ssssssssi", $kode, $nama, $varian,  $toping, $jumlah, $alamat, $provinsi, $email, $telp, $status, $id);
+
+        $stmt->bind_param("ssssssssssi", $kode, $nama, $varian, $toping, $jumlah, $alamat, $provinsi, $email, $telp, $status, $id);
         $result = $stmt->execute();
         $stmt->close();
-        // Mengembalikan hasil eksekusi query
         return $result;
     }
 
-    // Method untuk menghapus data mahasiswa
+    // Method untuk menghapus data roti
     public function deleteroti($id){
-        // Menyiapkan query SQL untuk delete data menggunakan prepared statement
         $query = "DELETE FROM tb_roti WHERE id_roti = ?";
         $stmt = $this->conn->prepare($query);
         if(!$stmt){
@@ -139,36 +138,29 @@ class roti extends Database {
         $stmt->bind_param("i", $id);
         $result = $stmt->execute();
         $stmt->close();
-        // Mengembalikan hasil eksekusi query
         return $result;
     }
 
-    // Method untuk mencari data mahasiswa berdasarkan kata kunci
+    // Method untuk mencari data roti berdasarkan kata kunci
     public function searchroti($kataKunci){
-        // Menyiapkan LIKE query untuk pencarian
         $likeQuery = "%".$kataKunci."%";
-        // Menyiapkan query SQL untuk pencarian data mahasiswa menggunakan prepared statement
-        $query = "SELECT id_roti, kode_roti, nama_varian_roti, varian_roti, nama_toping_roti, jumlah_box_roti, nama_provinsi, alamat, email, telp, status_pesanan
-                  FROM tb_roti
-                  JOIN tb_prodi ON prodi_mhs = kode_roti
-                  JOIN tb_provinsi ON provinsi = id_provinsi
-                  WHERE kode_roti LIKE ? OR nama_varian_roti LIKE ?";
+        $query = "SELECT r.id_roti, r.kode_roti, r.nama_varian_roti, r.varian_roti, r.toping_roti, 
+                         r.jumlah_box_roti, p.nama_provinsi, r.alamat, r.email, r.telp, r.status_pesanan
+                  FROM tb_roti r
+                  JOIN tb_provinsi p ON r.provinsi = p.id_provinsi
+                  WHERE r.kode_roti LIKE ? OR r.nama_varian_roti LIKE ?";
         $stmt = $this->conn->prepare($query);
         if(!$stmt){
-            // Mengembalikan array kosong jika statement gagal disiapkan
             return [];
         }
-        // Memasukkan parameter ke statement
         $stmt->bind_param("ss", $likeQuery, $likeQuery);
         $stmt->execute();
         $result = $stmt->get_result();
-        // Menyiapkan array kosong untuk menyimpan data mahasiswa
-        $mahasiswa = [];
+        $roti = [];
+
         if($result->num_rows > 0){
-            // Mengambil setiap baris data dan memasukkannya ke dalam array
             while($row = $result->fetch_assoc()) {
-                // Menyimpan data mahasiswa dalam array
-                $mahasiswa[] = [
+                $roti[] = [
                     'id' => $row['id_roti'],
                     'kode' => $row['kode_roti'],
                     'nama' => $row['nama_varian_roti'],
@@ -183,8 +175,7 @@ class roti extends Database {
             }
         }
         $stmt->close();
-        // Mengembalikan array data mahasiswa yang ditemukan
-        return $mahasiswa;
+        return $roti;
     }
 
 }

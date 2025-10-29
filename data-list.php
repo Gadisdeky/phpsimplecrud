@@ -15,7 +15,7 @@ if(isset($_GET['status'])){
 		echo "<script>alert('Gagal menghapus data roti. Silakan coba lagi.');</script>";
 	}
 }
-$roti = $roti->getAllroti();
+$dataroti = $roti->getAllroti();
 
 ?>
 <!doctype html>
@@ -122,7 +122,7 @@ $roti = $roti->getAllroti();
 										</table>
 									</div>
 									<div class="card-footer">
-										<button type="button" class="btn btn-primary" onclick="window.location.href='data-input.php'"><i class="bi bi-plus-lg"></i> Tambah Mahasiswa</button>
+										<button type="button" class="btn btn-primary" onclick="window.location.href='data-input.php'"><i class="bi bi-plus-lg"></i> Tambah Roti</button>
 									</div>
 								</div>
 							</div>

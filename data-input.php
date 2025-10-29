@@ -3,7 +3,7 @@
 include_once 'config/class-master.php';
 $master = new MasterData();
 // Mengambil daftar program studi, provinsi, dan status mahasiswa
-$VarianList = $master->getVarian();
+$VarianList = $master->getvarianroti();
 // Mengambil daftar provinsi
 $provinsiList = $master->getProvinsi();
 // Mengambil daftar status mahasiswa
@@ -76,15 +76,11 @@ if(isset($_GET['status'])){
                                                 <input type="text" class="form-control" id="nama varian roti" name="nama varian roti" placeholder="Masukkan Nama Varian Roti" required>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="prodi" class="form-label">Toping Roti</label>
-                                                <select class="form-select" id="prodi" name="prodi" required>
-                                                    <option value="" selected disabled>Toping Roti</option>
-                                                    <?php 
-                                                    // Iterasi daftar program studi dan menampilkannya sebagai opsi dalam dropdown
-                                                    foreach ($prodiList as $prodi){
-                                                        echo '<option value="'.$prodi['id'].'">'.$prodi['nama'].'</option>';
-                                                    }
-                                                    ?>
+                                                <div class="mb-3">
+                                                <label for="nama" class="form-label">Toping roti</label>
+                                                <input type="text" class="form-control" id="nama varian roti" name="nama varian roti" placeholder="Masukkan Nama Varian Roti" required>
+                                            </div>
+                                                    
                                                 </select>
                                             </div>
                                             <div class="mb-3">
