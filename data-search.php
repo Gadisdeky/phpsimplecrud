@@ -1,7 +1,7 @@
 <?php
 
-include_once 'config/class-mahasiswa.php';
-$roti = new roti();
+include_once 'config/class-varian.php';
+$varian= new varian();
 $kataKunci = '';
 // Mengecek apakah parameter GET 'search' ada
 if(isset($_GET['search'])){
@@ -110,25 +110,23 @@ if(isset($_GET['search'])){
 													foreach ($cariMahasiswa as $index => $mahasiswa){
 														// Mengubah status mahasiswa menjadi badge dengan warna yang sesuai
 														if($mahasiswa['status'] == 1){
-															$mahasiswa['status'] = '<span class="badge bg-success">Aktif</span>';
+															$mahasiswa['status'] = '<span class="badge bg-success">Checout</span>';
 														} elseif($mahasiswa['status'] == 2){
-															$mahasiswa['status'] = '<span class="badge bg-danger">Tidak Aktif</span>';
-														} elseif($mahasiswa['status'] == 3){
-															$mahasiswa['status'] = '<span class="badge bg-warning text-dark">Cuti</span>';
-														} elseif($mahasiswa['status'] == 4){
-															$mahasiswa['status'] = '<span class="badge bg-primary">Lulus</span>';
+															$mahasiswa['status'] = '<span class="badge bg-danger">Cansel</span>';
 														} 
 														// Menampilkan baris data mahasiswa dalam tabel
 														echo '<tr class="align-middle">
 															<td>'.($index + 1).'</td>
-															<td>'.$mahasiswa['nim'].'</td>
-															<td>'.$mahasiswa['nama'].'</td>
-															<td>'.$mahasiswa['prodi'].'</td>
-															<td>'.$mahasiswa['provinsi'].'</td>
-															<td>'.$mahasiswa['alamat'].'</td>
-															<td>'.$mahasiswa['telp'].'</td>
-															<td>'.$mahasiswa['email'].'</td>
-															<td class="text-center">'.$mahasiswa['status'].'</td>
+															<td>'.$roti['kode'].'</td>
+																<td>'.$roti['nama'].'</td>
+																<td>'.$roti['varian'].'</td>
+																<td>'.$roti['toping'].'</td>
+																<td>'.$roti['jumlah'].'</td>
+																<td>'.$roti['provinsi'].'</td>
+																<td>'.$roti['alamat'].'</td>
+																<td>'.$roti['telp'].'</td>
+																<td>'.$roti['email'].'</td>
+															<td class="text-center">'.$roti['status'].'</td>
 															<td class="text-center">
 																<button type="button" class="btn btn-sm btn-warning me-1" onclick="window.location.href=\'data-edit.php?id='.$mahasiswa['id'].'\'"><i class="bi bi-pencil-fill"></i> Edit</button>
 																<button type="button" class="btn btn-sm btn-danger" onclick="if(confirm(\'Yakin ingin menghapus data mahasiswa ini?\')){window.location.href=\'proses/proses-delete.php?id='.$mahasiswa['id'].'\'}"><i class="bi bi-trash-fill"></i> Hapus</button>

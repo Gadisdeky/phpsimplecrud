@@ -3,7 +3,7 @@
 // Silakan lihat komentar di file data-edit.php untuk penjelasan kode ini, karena struktur dan logikanya serupa.
 include_once 'config/class-master.php';
 $master = new MasterData();
-$dataProvinsi = $master->getUpdateProvinsi($_GET['id']);
+$dataStokvarianekslusif= $master->getUpdateStokvarianekslusif($_GET['id']);
 if(isset($_GET['status'])){
     if($_GET['status'] == 'failed'){
         echo "<script>alert('Gagal mengubah data provinsi. Silakan coba lagi.');</script>";
@@ -31,7 +31,7 @@ if(isset($_GET['status'])){
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-sm-6">
-								<h3 class="mb-0">Edit Provinsi</h3>
+								<h3 class="mb-0">Edit Stok varian</h3>
 							</div>
 							<div class="col-sm-6">
 								<ol class="breadcrumb float-sm-end">
@@ -62,10 +62,10 @@ if(isset($_GET['status'])){
 									</div>
                                     <form action="proses/proses-provinsi.php?aksi=updateprovinsi" method="POST">
 									    <div class="card-body">
-                                            <input type="hidden" name="id" value="<?php echo $dataProvinsi['id']; ?>">
+                                            <input type="hidden" name="id" value="<?php echo $dataStokvarianekslusif['id']; ?>">
 											<div class="mb-3">
-												<label for="nama" class="form-label">Nama Provinsi</label>
-												<input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama Program Studi" value="<?php echo $dataProvinsi['nama']; ?>" required>
+												<label for="nama" class="form-label">Nama Varian eksklusif</label>
+												<input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama Varian ekslusif" value="<?php echo $dataStokvarianekslusif['nama']; ?>" required>
 											</div>
                                         </div>
 									    <div class="card-footer">

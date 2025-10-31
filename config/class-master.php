@@ -22,19 +22,20 @@ class MasterData extends Database {
     }
 
     // Method untuk mendapatkan daftar provinsi
-    public function getProvinsi(){
-        $query = "SELECT * FROM tb_provinsi";
+    public function getStokvarianekslusif(){
+        $query = "SELECT * FROM tb_stok_Varian_ekslusif";
         $result = $this->conn->query($query);
-        $provinsi = [];
+        $stokvarianekslusif = [];
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
-                $provinsi[] = [
-                    'id' => $row['id_provinsi'],
-                    'nama' => $row['nama_provinsi']
+                $varianrotiekslusif[] = [
+                    'id' => $row['id_Varian_ekslusif'],
+                    'nama' => $row['Nama_Varian_ekslusif'],
+                     'stok' => $row['stok']
                 ];
             }
         }
-        return $provinsi;
+        return $varianrotiekslusif;
     }
 
     // Method untuk mendapatkan daftar status mahasiswa menggunakan array statis

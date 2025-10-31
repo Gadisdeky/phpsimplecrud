@@ -5,7 +5,7 @@ $master = new MasterData();
 // Mengambil daftar program studi, provinsi, dan status mahasiswa
 $VarianList = $master->getvarianroti();
 // Mengambil daftar provinsi
-$provinsiList = $master->getProvinsi();
+$Stokvarianekslusif = $master->getStokvarianekslusif();
 // Mengambil daftar status mahasiswa
 $statusList = $master->getStatus();
 // Menampilkan alert berdasarkan status yang diterima melalui parameter GET

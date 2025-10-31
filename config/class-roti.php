@@ -39,10 +39,10 @@ class roti extends Database {
 
     // Method untuk mengambil semua data roti
     public function getAllroti(){
-        $query = "SELECT r.id_roti, r.kode_roti, r.nama_varian_roti, r.toping_roti, r.jumlah_box_roti, 
-                         r.alamat, r.email, r.telp, r.status_pesanan, p.nama_provinsi
+        $query = "SELECT id_roti, kode_roti,nama_varian_roti,toping_roti,jumlah_box_roti, 
+                         alamat, email, telp,status_pesanan, nama_provinsi
                   FROM tb_roti r
-                  JOIN tb_provinsi p ON r.provinsi = p.id_provinsi";
+                  JOIN tb_provinsi p ON provinsi = id_provinsi";
         $result = $this->conn->query($query);
 
         $roti = [];
@@ -144,11 +144,11 @@ class roti extends Database {
     // Method untuk mencari data roti berdasarkan kata kunci
     public function searchroti($kataKunci){
         $likeQuery = "%".$kataKunci."%";
-        $query = "SELECT r.id_roti, r.kode_roti, r.nama_varian_roti, r.varian_roti, r.toping_roti, 
-                         r.jumlah_box_roti, p.nama_provinsi, r.alamat, r.email, r.telp, r.status_pesanan
-                  FROM tb_roti r
-                  JOIN tb_provinsi p ON r.provinsi = p.id_provinsi
-                  WHERE r.kode_roti LIKE ? OR r.nama_varian_roti LIKE ?";
+        $query = "SELECT id_roti, kode_roti, nama_varian_roti, varian_roti, toping_roti, 
+                         jumlah_box_roti, nama_provinsi, alamat, email, telp, status_pesanan
+                  FROM tb_roti 
+                  JOIN tb_stok_varian ON nm_ varian_ekslusif= id_varian_ekslusif
+                  WHERE kode_roti LIKE ? OR nama_varian_roti LIKE ?";
         $stmt = $this->conn->prepare($query);
         if(!$stmt){
             return [];

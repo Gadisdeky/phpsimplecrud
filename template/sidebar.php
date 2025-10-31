@@ -35,7 +35,7 @@
                 <li class="nav-item">
                     <a href="data-list.php" class="nav-link">
                         <i class="nav-icon bi bi-card-list"></i>
-                        <p>Data Pesanan</p>
+                        <p>Data Roti</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -48,7 +48,7 @@
                 <li class="nav-item">
                     <a href="master-prodi-list.php" class="nav-link">
                         <i class="nav-icon bi bi-building"></i>
-                        <p>Roti eksklusif</p>
+                        <p>Varian eksklusif</p>
                     </a>
                 </li>
                 <li class="nav-item">
