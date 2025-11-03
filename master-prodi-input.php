@@ -3,7 +3,7 @@
 // Silakan lihat komentar di file data-input.php untuk penjelasan kode ini, karena struktur dan logikanya serupa.
 if(isset($_GET['status'])){
     if($_GET['status'] == 'failed'){
-        echo "<script>alert('Gagal menambahkan data roti. Silakan coba lagi.');</script>";
+        echo "<script>alert('Gagal menambahkan Varian roti. Silakan coba lagi.');</script>";
     }
 }
 

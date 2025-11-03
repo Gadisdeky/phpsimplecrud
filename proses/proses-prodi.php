@@ -12,7 +12,7 @@ if($_GET['aksi'] == 'inputprodi'){
         'nama' => $_POST['nama']
     ];
     // Memanggil method inputProdi untuk memasukkan data prodi dengan parameter array $dataProdi
-    $input = $master->inputProdi($dataProdi);
+    $input = $master->inputVarianroti($dataVarianroti);
     if($input){
         // Jika berhasil, redirect ke halaman master-prodi-list.php dengan status inputsuccess
         header("Location: ../master-prodi-list.php?status=inputsuccess");
@@ -22,31 +22,30 @@ if($_GET['aksi'] == 'inputprodi'){
     }
 } elseif($_GET['aksi'] == 'updateprodi'){
     // Mengambil data prodi dari form edit menggunakan metode POST dan menyimpannya dalam array
-    $dataProdi = [
-        'id' => $_POST['id'],
+    $dataVarianroti = [
         'kode' => $_POST['kode'],
         'nama' => $_POST['nama']
     ];
     // Memanggil method updateProdi untuk mengupdate data prodi dengan parameter array $dataProdi
-    $update = $master->updateProdi($dataProdi);
+    $update = $master->updateVarianroti($dataVarian);
     if($update){
         // Jika berhasil, redirect ke halaman master-prodi-list.php dengan status editsuccess
-        header("Location: ../master-prodi-list.php?status=editsuccess");
+        header("Location: ../master-Varian-roti-list.php?status=editsuccess");
     } else {
         // Jika gagal, redirect ke halaman master-prodi-edit.php dengan status failed dan membawa id prodi
-        header("Location: ../master-prodi-edit.php?id=".$dataProdi['id']."&status=failed");
+        header("Location: ../master-Varin-roti-edit.php?id=".$dataVarian['id']."&status=failed");
     }
-} elseif($_GET['aksi'] == 'deleteprodi'){
+} elseif($_GET['aksi'] == 'deleteVarianroti'){
     // Mengambil id prodi dari parameter GET
     $id = $_GET['id'];
     // Memanggil method deleteProdi untuk menghapus data prodi berdasarkan id
-    $delete = $master->deleteProdi($id);
+    $delete = $master->deleteVarianroti($id);
     if($delete){
         // Jika berhasil, redirect ke halaman master-prodi-list.php dengan status deletesuccess
-        header("Location: ../master-prodi-list.php?status=deletesuccess");
+        header("Location: ../master-Varian-roti-list.php?status=deletesuccess");
     } else {
         // Jika gagal, redirect ke halaman master-prodi-list.php dengan status deletefailed
-        header("Location: ../master-prodi-list.php?status=deletefailed");
+        header("Location: ../master-Varian-roti-list.php?status=deletefailed");
     }
 }
 

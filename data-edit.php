@@ -5,7 +5,7 @@ include_once 'config/class-mahasiswa.php';
 $master = new MasterData();
 $roti = new roti();
 // Mengambil daftar program studi, provinsi, dan status mahasiswa
-$prodiList = $master->getProdi();
+$VarianrotiList = $master->getVarianroti();
 // Mengambil daftar provinsi
 $provinsiList = $master->getProvinsi();
 // Mengambil daftar status mahasiswa

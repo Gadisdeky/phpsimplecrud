@@ -5,16 +5,18 @@ include_once 'config/class-master.php';
 $master = new MasterData();
 if(isset($_GET['status'])){
 	if($_GET['status'] == 'inputsuccess'){
-		echo "<script>alert('Data prodi berhasil ditambahkan.');</script>";
+		echo "<script>alert('Data Varian roti berhasil ditambahkan.');</script>";
 	} else if($_GET['status'] == 'editsuccess'){
-		echo "<script>alert('Data prodi berhasil diubah.');</script>";
+		echo "<script>alert('Data Varian berhasil diubah.');</script>";
 	} else if($_GET['status'] == 'deletesuccess'){
 		echo "<script>alert('Data prodi berhasil dihapus.');</script>";
 	} else if($_GET['status'] == 'deletefailed'){
 		echo "<script>alert('Gagal menghapus data prodi. Silakan coba lagi.');</script>";
 	}
 }
-$dataVarian = $master->getvarianroti();
+
+// ✅ Perbaikan agar tidak error count(): jika hasil null → jadikan array kosong
+$dataVarianroti = $master->getUpdateVarianroti(null) ?: [];
 
 ?>
 <!doctype html>
@@ -55,7 +57,7 @@ $dataVarian = $master->getvarianroti();
 							<div class="col-12">
 								<div class="card">
 									<div class="card-header">
-										<h3 class="card-title">Daftar Varian EKsklusi</h3>
+										<h3 class="card-title">Daftar Varian</h3>
 										<div class="card-tools">
 											<button type="button" class="btn btn-tool" data-lte-toggle="card-collapse" title="Collapse">
 												<i data-lte-icon="expand" class="bi bi-plus-lg"></i>
@@ -78,12 +80,14 @@ $dataVarian = $master->getvarianroti();
 											</thead>
 											<tbody>
 												<?php
-													if(count($dataVarian) == 0){
+													if(count($dataVarianroti) == 0){
 													    echo '<tr class="align-middle">
 															<td colspan="4" class="text-center">Tidak ada data prodi.</td>
 														</tr>';
 													} else {
-														foreach ($dataVarian as $index => $Varian){
+
+														// ✅ Perbaikan variabel loop supaya data muncul
+														foreach ($dataVarianroti as $index => $Varian){
 															echo '<tr class="align-middle">
 																<td>'.($index + 1).'</td>
 																<td>'.$Varian['kode'].'</td>
@@ -100,7 +104,7 @@ $dataVarian = $master->getvarianroti();
 										</table>
 									</div>
 									<div class="card-footer">
-										<button type="button" class="btn btn-primary" onclick="window.location.href='master-prodi-input.php'"><i class="bi bi-plus-lg"></i> Tambah Prodi</button>
+										<button type="button" class="btn btn-primary" onclick="window.location.href='master-prodi-input.php'"><i class="bi bi-plus-lg"></i> Tambah Varian roti</button>
 									</div>
 								</div>
 							</div>

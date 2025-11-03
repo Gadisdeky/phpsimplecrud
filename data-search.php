@@ -1,7 +1,7 @@
 <?php
 
-include_once 'config/class-varian.php';
-$varian= new varian();
+include_once 'config/class-roti.php';
+$roti= new roti();
 $kataKunci = '';
 // Mengecek apakah parameter GET 'search' ada
 if(isset($_GET['search'])){
@@ -94,9 +94,11 @@ if(isset($_GET['search'])){
 													<thead>
 														<tr>
 															<th>No</th>
-															<th>NIM</th>
+															<th>id</th>
 															<th>Nama</th>
-															<th>Prodi</th>
+															<th>Varian</th>
+															<th>Toping</th>
+															<th>Jumlah</th>
 															<th>Provinsi</th>
 															<th>Alamat</th>
 															<th>Telp</th>

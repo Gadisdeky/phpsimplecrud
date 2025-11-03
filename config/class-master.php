@@ -6,7 +6,7 @@ include_once 'db-config.php';
 class MasterData extends Database {
 
     // Method untuk mendapatkan daftar program studi
-    public function getvarianroti(){
+    public function getVarianroti(){
         $query = "SELECT * FROM tb_Varian_roti";
         $result = $this->conn->query($query);
         $prodi = [];
@@ -35,7 +35,7 @@ class MasterData extends Database {
                 ];
             }
         }
-        return $varianrotiekslusif;
+        return $stokvarianekslusif;
     }
 
     // Method untuk mendapatkan daftar status mahasiswa menggunakan array statis
@@ -48,7 +48,7 @@ class MasterData extends Database {
     }
 
     // Method untuk input data program studi
-    public function inputProdi($data){
+    public function inputVarianroti($data){
         $koderoti = $data['kode'];
         $namaVarian = $data['nama'];
         $query = "INSERT INTO tb_Varian_roti (kode_Roti, nama_Varian_roti) VALUES (?, ?)";
@@ -63,7 +63,7 @@ class MasterData extends Database {
     }
 
     // Method untuk mendapatkan data program studi berdasarkan kode
-    public function getUpdateProdi($id){
+    public function getUpdateVarianroti($id){
         $query = "SELECT * FROM tb_Varian_roti WHERE kode_Roti = ?";
         $stmt = $this->conn->prepare($query);
         if(!$stmt){
@@ -85,7 +85,7 @@ class MasterData extends Database {
     }
 
     // Method untuk mengedit data program studi
-    public function updateVarian($data){
+    public function updateVarianroti($data){
         $kodeProdi = $data['kode'];
         $namaProdi = $data['nama'];
         $query = "UPDATE tb_Varian_roti SET nama_Varian_roti = ? WHERE kode_Roti = ?";
@@ -93,15 +93,15 @@ class MasterData extends Database {
         if(!$stmt){
             return false;
         }
-        $stmt->bind_param("ss", $namaVarian, $kodeRoti);
+        $stmt->bind_param("ss", $kodevarian, $namaVarian);
         $result = $stmt->execute();
         $stmt->close();
         return $result;
     }
 
     // Method untuk menghapus data program studi
-    public function deleteProdi($id){
-        $query = "DELETE FROM tb_prodi WHERE kode_prodi = ?";
+    public function deleteVariantoti($id){
+        $query = "DELETE FROM tb_varian_roti WHERE kode_varian = ?";
         $stmt = $this->conn->prepare($query);
         if(!$stmt){
             return false;

@@ -1,183 +1,113 @@
 <?php 
 
-// Memasukkan file konfigurasi database
 include_once 'db-config.php';
 
 class roti extends Database {
 
-    // Method untuk input data roti
+    // Input data roti
     public function inputroti($data){
-        // Mengambil data dari parameter $data
-        $kode     = $data['kode'];
-        $nama     = $data['nama_varian_roti'];
-        $varian   = $data['varian_roti'];
-        $toping   = $data['toping_roti'];
-        $jumlah   = $data['jumlah_box_roti'];
-        $alamat   = $data['alamat'];
-        $provinsi = $data['provinsi'];
-        $email    = $data['email'];
-        $telp     = $data['telp'];
-        $status   = $data['status_pesanan'];
+        $kode     = $data['kode'] ?? '';
+        $nama     = $data['nama_varian_roti'] ?? '';
+        $toping   = $data['toping_roti'] ?? '';
+        $jumlah   = $data['jumlah_box_roti'] ?? '';
+        $alamat   = $data['alamat'] ?? '';
+        // ✅ Pastikan Provinsi integer
+        $provinsi = isset($data['provinsi']) && is_numeric($data['provinsi']) ? (int)$data['provinsi'] : 0;
+        $email    = $data['email'] ?? '';
+        $telp     = $data['telp'] ?? '';
+        // ✅ Pastikan Status_Pesanan integer
+        $status   = isset($data['status_pesanan']) && is_numeric($data['status_pesanan']) ? (int)$data['status_pesanan'] : 0;
 
-        // Menyiapkan query SQL untuk insert data
         $query = "INSERT INTO tb_roti 
-                  (kode_roti, nama_varian_roti, varian_roti, toping_roti, jumlah_box_roti, alamat, provinsi, email, telp, status_pesanan) 
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $this->conn->prepare($query);
+                  (Kode_roti, Nama_Varian_roti, Toping_roti, Jumlah_box_roti, Alamat, Provinsi, Email, Telp, Status_pesanan) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+        $stmt = $this->conn->prepare($query);
         if(!$stmt){
             return false;
         }
 
-        // Memasukkan parameter ke statement
-        $stmt->bind_param("ssssssssss", $kode, $nama, $varian, $toping, $jumlah, $alamat, $provinsi, $email, $telp, $status);
+        $stmt->bind_param("ssssssiss", $kode, $nama, $toping, $jumlah, $alamat, $provinsi, $email, $telp, $status);
         $result = $stmt->execute();
         $stmt->close();
 
         return $result;
     }
 
-    // Method untuk mengambil semua data roti
+    // Get semua data roti
     public function getAllroti(){
-        $query = "SELECT id_roti, kode_roti,nama_varian_roti,toping_roti,jumlah_box_roti, 
-                         alamat, email, telp,status_pesanan, nama_provinsi
-                  FROM tb_roti r
-                  JOIN tb_provinsi p ON provinsi = id_provinsi";
+        $query = "SELECT * FROM tb_roti";
         $result = $this->conn->query($query);
 
         $roti = [];
-
         if($result && $result->num_rows > 0){
             while($row = $result->fetch_assoc()) {
-                $roti[] = [
-                    'id' => $row['id_roti'],
-                    'kode' => $row['kode_roti'],
-                    'nama' => $row['nama_varian_roti'],
-                    'toping' => $row['toping_roti'],
-                    'jumlah' => $row['jumlah_box_roti'],
-                    'provinsi' => $row['nama_provinsi'],
-                    'alamat' => $row['alamat'],
-                    'email' => $row['email'],
-                    'telp' => $row['telp'],
-                    'status' => $row['status_pesanan']
-                ];
+                $roti[] = $row;
             }
         }
-
         return $roti;
     }
 
-    // Method untuk mengambil data roti berdasarkan ID
+    // Get data roti berdasarkan ID
     public function getUpdateroti($id){
         $query = "SELECT * FROM tb_roti WHERE id_roti = ?";
         $stmt = $this->conn->prepare($query);
         if(!$stmt){
             return false;
         }
+
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
-        $data = false;
 
-        if($result->num_rows > 0){
-            $row = $result->fetch_assoc();
-            $data = [
-                'id' => $row['id_roti'],
-                'kode' => $row['kode_roti'],
-                'nama' => $row['nama_varian_roti'],
-                'varian' => $row['varian_roti'],
-                'toping' => $row['toping_roti'],
-                'jumlah' => $row['jumlah_box_roti'],
-                'alamat' => $row['alamat'],
-                'provinsi' => $row['provinsi'],
-                'email' => $row['email'],
-                'telp' => $row['telp'],
-                'status' => $row['status_pesanan']
-            ];
-        }
+        $data = ($result->num_rows > 0) ? $result->fetch_assoc() : false;
         $stmt->close();
         return $data;
     }
 
-    // Method untuk mengedit data roti
+    // Edit roti
     public function editroti($data){
         $id       = $data['id'];
         $kode     = $data['kode'];
-        $nama     = $data['nama'];
-        $varian   = $data['varian'];
-        $toping   = $data['toping'];
-        $jumlah   = $data['jumlah'];
+        $nama     = $data['nama_varian_roti'];
+        $toping   = $data['toping_roti'];
+        $jumlah   = $data['jumlah_box_roti'];
         $alamat   = $data['alamat'];
-        $provinsi = $data['provinsi'];
+        // ✅ Pastikan Provinsi integer
+        $provinsi = isset($data['provinsi']) && is_numeric($data['provinsi']) ? (int)$data['provinsi'] : 0;
         $email    = $data['email'];
         $telp     = $data['telp'];
-        $status   = $data['status'];
+        // ✅ Pastikan Status_Pesanan integer
+        $status   = isset($data['status_pesanan']) && is_numeric($data['status_pesanan']) ? (int)$data['status_pesanan'] : 0;
 
         $query = "UPDATE tb_roti 
-                  SET kode_roti = ?, nama_varian_roti = ?, varian_roti = ?, toping_roti = ?, 
-                      jumlah_box_roti = ?, alamat = ?, provinsi = ?, email = ?, telp = ?, status_pesanan = ? 
+                  SET Kode_roti = ?, Nama_Varian_roti = ?, Toping_roti = ?, Jumlah_box_roti = ?, Alamat = ?, Provinsi = ?, Email = ?, Telp = ?, Status_pesanan = ?
                   WHERE id_roti = ?";
+
         $stmt = $this->conn->prepare($query);
         if(!$stmt){
             return false;
         }
 
-        $stmt->bind_param("ssssssssssi", $kode, $nama, $varian, $toping, $jumlah, $alamat, $provinsi, $email, $telp, $status, $id);
+        $stmt->bind_param("ssssssissi", $kode, $nama, $toping, $jumlah, $alamat, $provinsi, $email, $telp, $status, $id);
         $result = $stmt->execute();
         $stmt->close();
         return $result;
     }
 
-    // Method untuk menghapus data roti
+    // Delete roti
     public function deleteroti($id){
         $query = "DELETE FROM tb_roti WHERE id_roti = ?";
         $stmt = $this->conn->prepare($query);
         if(!$stmt){
             return false;
         }
+
         $stmt->bind_param("i", $id);
         $result = $stmt->execute();
         $stmt->close();
         return $result;
     }
 
-    // Method untuk mencari data roti berdasarkan kata kunci
-    public function searchroti($kataKunci){
-        $likeQuery = "%".$kataKunci."%";
-        $query = "SELECT id_roti, kode_roti, nama_varian_roti, varian_roti, toping_roti, 
-                         jumlah_box_roti, nama_provinsi, alamat, email, telp, status_pesanan
-                  FROM tb_roti 
-                  JOIN tb_stok_varian ON nm_ varian_ekslusif= id_varian_ekslusif
-                  WHERE kode_roti LIKE ? OR nama_varian_roti LIKE ?";
-        $stmt = $this->conn->prepare($query);
-        if(!$stmt){
-            return [];
-        }
-        $stmt->bind_param("ss", $likeQuery, $likeQuery);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $roti = [];
-
-        if($result->num_rows > 0){
-            while($row = $result->fetch_assoc()) {
-                $roti[] = [
-                    'id' => $row['id_roti'],
-                    'kode' => $row['kode_roti'],
-                    'nama' => $row['nama_varian_roti'],
-                    'toping' => $row['toping_roti'],
-                    'jumlah' => $row['jumlah_box_roti'],
-                    'provinsi' => $row['nama_provinsi'],
-                    'alamat' => $row['alamat'],
-                    'email' => $row['email'],
-                    'telp' => $row['telp'],
-                    'status' => $row['status_pesanan']
-                ];
-            }
-        }
-        $stmt->close();
-        return $roti;
-    }
-
 }
-
 ?>
